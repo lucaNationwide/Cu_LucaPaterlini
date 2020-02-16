@@ -6,6 +6,7 @@ import (
 
 var testCasesGetRateByDate = []struct {
 	inputTicker      string
+	inputBase string
 	inputStartDate   string
 	inputEndDate     string
 	expectedResponse ResponseHandlerExchange
@@ -13,29 +14,32 @@ var testCasesGetRateByDate = []struct {
 	description      string
 }{
 	{
-		inputTicker:    "USD",
+		inputTicker:    "EUR",
+		inputBase:"USD",
 		inputStartDate: "2018-12-10",
 		inputEndDate:   "2018-12-20",
 		expectedResponse: ResponseHandlerExchange{
-			Val:        1.1451,
-			Suggestion: "sell",
+			Val:        0.8732861759,
+			Suggestion: "buy USD/EUR",
 		},
 		expectedError: nil,
 		description:   "valid usd rate request",
 	},
 	{
-		inputTicker:    "GBP",
+		inputTicker: "EUR",
+		inputBase:    "GBP",
 		inputStartDate: "2018-12-10",
 		inputEndDate:   "2018-12-20",
 		expectedResponse: ResponseHandlerExchange{
-			Val:        0.90335,
-			Suggestion: "sell",
+			Val:        1.1069906459,
+			Suggestion: "buy GBP/EUR",
 		},
 		expectedError: nil,
 		description:   "valid gbp rate request",
 	},
 	{
 		inputTicker:      "EUR",
+		inputBase: "EUR",
 		inputStartDate:   "2020-12-10",
 		inputEndDate:     "2018-12-20",
 		expectedResponse: ResponseHandlerExchange{},

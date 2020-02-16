@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"Cu_LucaPaterlini/api/exchange"
+	"Cu_LucaPaterlini/config"
 	"encoding/json"
 	"github.com/gorilla/mux"
 	"net/http"
@@ -28,7 +29,7 @@ func HandlerExchange(w http.ResponseWriter, r *http.Request) {
 		endDate =endDate.AddDate(0, 0, -2)
 	}
 
-	resp, err := exchange.GetRateByDate(vars["ticker"], startDate.Format("2006-01-02"), endDate.Format("2006-01-02"))
+	resp, err := exchange.GetRateByDate(config.DefaultCurrency,vars["ticker"], startDate.Format("2006-01-02"), endDate.Format("2006-01-02"))
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusFailedDependency)
 		return

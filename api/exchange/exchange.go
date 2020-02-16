@@ -18,11 +18,11 @@ type ResponseHandlerExchange struct {
 
 // GetRateByDate returns the last value of the currency with euro as base in a specific interval
 // and with the advice to buy or sell depending on the average of the days in the range.
-func GetRateByDate(ticker, startDate, endDate string) (res ResponseHandlerExchange, err error) {
+func GetRateByDate(ticker,base,  startDate, endDate string) (res ResponseHandlerExchange, err error) {
 	// checking supported tickers
 	found := false
-	for _, t := range config.SupportedTickers {
-		if t == ticker {
+	for _, b := range config.SupportedTickers {
+		if b == base {
 			found = true
 		}
 	}
@@ -31,7 +31,7 @@ func GetRateByDate(ticker, startDate, endDate string) (res ResponseHandlerExchan
 		return
 	}
 	// collection the response from the third party api
-	requestURL := config.FullThirdPartyAPIPath + "history?start_at=" + startDate + "&end_at=" + endDate + "&symbols=" + ticker
+	requestURL := config.FullThirdPartyAPIPath + "history?start_at=" + startDate + "&end_at=" + endDate + "&symbols=" + ticker +"&base="+base
 	client := &http.Client{Timeout: config.DefaultRequestsTimeout}
 	resp, err := client.Get(requestURL)
 	if err != nil {
@@ -58,9 +58,10 @@ func GetRateByDate(ticker, startDate, endDate string) (res ResponseHandlerExchan
 			res.Val = x
 		}
 	}
-	res.Suggestion = "buy"
-	if sum/float64(n) < res.Val {
-		res.Suggestion = "sell"
+	res.Suggestion = "sell"
+	if sum/float64(n) > res.Val {
+		res.Suggestion = "buy"
 	}
+	res.Suggestion+=fmt.Sprintf(" %s/%s",base,ticker)
 	return
 }

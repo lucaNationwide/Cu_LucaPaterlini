@@ -8,7 +8,7 @@ import (
 
 func TestGetRateByDate(t *testing.T) {
 	for _, tc := range testCasesGetRateByDate {
-		got, err := GetRateByDate(tc.inputTicker, tc.inputStartDate, tc.inputEndDate)
+		got, err := GetRateByDate(tc.inputTicker,tc.inputBase, tc.inputStartDate, tc.inputEndDate)
 		description := fmt.Sprintf("Test:%s GetRateByDate(%v,%v,%v)",
 			tc.description, tc.inputTicker, tc.inputStartDate, tc.inputEndDate)
 		fmt.Print(description)

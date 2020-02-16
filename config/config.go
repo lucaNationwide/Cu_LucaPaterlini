@@ -13,6 +13,8 @@ const (
 	ServerWriteTimeout = time.Second * 20
 	// ServerReadTimeout sets a max for each write request
 	ServerReadTimeout = time.Second * 20
+	// DefaultCurrency to use as target currency
+	DefaultCurrency = "EUR"
 )
 
 // SupportedTickers is a list of supported tickers
