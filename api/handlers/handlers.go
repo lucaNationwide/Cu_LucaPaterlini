@@ -22,20 +22,14 @@ func HandlerExchange(w http.ResponseWriter, r *http.Request) {
 	// preparing and adjusting the dates
 	endDate := time.Now()
 	startDate := endDate.AddDate(0, 0, -7)
-	switch endDate.Weekday() {
-	case 6:
-		endDate =endDate.AddDate(0, 0, -1)
-	case 0:
-		endDate =endDate.AddDate(0, 0, -2)
-	}
 
-	resp, err := exchange.GetRateByDate(config.DefaultCurrency,vars["ticker"], startDate.Format("2006-01-02"), endDate.Format("2006-01-02"))
+	resp, err := exchange.GetRateByDate(config.DefaultCurrency, vars["ticker"], startDate, endDate)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusFailedDependency)
 		return
 	}
 	var respB []byte
-	if respB,err = json.Marshal( &resp); err != nil {
+	if respB, err = json.Marshal(&resp); err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}

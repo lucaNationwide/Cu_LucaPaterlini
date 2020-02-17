@@ -7,6 +7,7 @@ import (
 	"log"
 	"net/http"
 )
+
 // ListenHTTP list the routes provided by the package and start the server
 func ListenHTTP() {
 	router := mux.NewRouter()
