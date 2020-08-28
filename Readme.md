@@ -51,3 +51,8 @@ As future development I would like to list the following:
  - a middleware that limit the access to the api to prevent a denial of service attack and/or over consumption of resources. 
  
  - expand on logging system in case of error to keep track of any warning or incident happened during the execution.
+
+
+# TODO Improve
+
+the function GetRateByDate and the function was too big
