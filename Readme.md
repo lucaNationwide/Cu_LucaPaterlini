@@ -56,3 +56,7 @@ As future development I would like to list the following:
 # TODO Improve
 
 the function GetRateByDate and the function was too big
+- new features, integrate with a token jwt received from auth0
+- store user currency researches (user, name, list of currency conversions)
+- move to buffalo with graphql plugin for apollo
+
